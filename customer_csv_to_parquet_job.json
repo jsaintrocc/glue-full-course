@@ -1,0 +1,271 @@
+{
+	"jobConfig": {
+		"name": "customer_csv_to_parquet",
+		"description": "",
+		"role": "arn:aws:iam::767397859805:role/glue-course-full-access-delete",
+		"command": "glueetl",
+		"version": "4.0",
+		"runtime": null,
+		"workerType": "G.1X",
+		"numberOfWorkers": 10,
+		"maxCapacity": 10,
+		"maxRetries": 0,
+		"timeout": 2880,
+		"maxConcurrentRuns": 1,
+		"security": "none",
+		"scriptName": "customer_csv_to_parquet.py",
+		"scriptLocation": "s3://jsr-glue-full-course/scripts/",
+		"language": "python-3",
+		"spark": true,
+		"sparkConfiguration": "standard",
+		"jobParameters": [],
+		"tags": [],
+		"jobMode": "VISUAL_MODE",
+		"createdOn": "2024-07-19T16:45:26.931Z",
+		"developerMode": false,
+		"connectionsList": [],
+		"temporaryDirectory": "s3://jsr-glue-full-course/temp-dir/",
+		"logging": true,
+		"glueHiveMetastore": true,
+		"etlAutoTuning": false,
+		"metrics": true,
+		"observabilityMetrics": true,
+		"bookmark": "job-bookmark-disable",
+		"sparkPath": "s3://aws-glue-assets-767397859805-us-east-1/sparkHistoryLogs/",
+		"flexExecution": false,
+		"minFlexWorkers": null,
+		"maintenanceWindow": null
+	},
+	"dag": {
+		"node-1721406644607": {
+			"nodeId": "node-1721406644607",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1721406636623"
+			],
+			"name": "Change Schema",
+			"generatedNodeName": "ChangeSchema_node1721406644607",
+			"classification": "Transform",
+			"type": "ApplyMapping",
+			"mapping": [
+				{
+					"toKey": "customerid",
+					"fromPath": [
+						"customerid"
+					],
+					"toType": "string",
+					"fromType": "long",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "namestyle",
+					"fromPath": [
+						"namestyle"
+					],
+					"toType": "string",
+					"fromType": "boolean",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "title",
+					"fromPath": [
+						"title"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "firstname",
+					"fromPath": [
+						"firstname"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "middlename",
+					"fromPath": [
+						"middlename"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "lastname",
+					"fromPath": [
+						"lastname"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "suffix",
+					"fromPath": [
+						"suffix"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "companyname",
+					"fromPath": [
+						"companyname"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "salesperson",
+					"fromPath": [
+						"salesperson"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "emailaddress",
+					"fromPath": [
+						"emailaddress"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "phone",
+					"fromPath": [
+						"phone"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "passwordhash",
+					"fromPath": [
+						"passwordhash"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "passwordsalt",
+					"fromPath": [
+						"passwordsalt"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "rowguid",
+					"fromPath": [
+						"rowguid"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "modifieddate",
+					"fromPath": [
+						"modifieddate"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				},
+				{
+					"toKey": "dataload",
+					"fromPath": [
+						"dataload"
+					],
+					"toType": "string",
+					"fromType": "string",
+					"dropped": false,
+					"children": null
+				}
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1721407671263": {
+			"nodeId": "node-1721407671263",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1721406644607"
+			],
+			"name": "Amazon S3",
+			"generatedNodeName": "AmazonS3_node1721407671263",
+			"classification": "DataSink",
+			"type": "S3",
+			"streamingBatchInterval": 100,
+			"format": "glueparquet",
+			"compression": "snappy",
+			"path": "s3://jsr-glue-full-course/data/customers_database/customer_parquet/",
+			"partitionKeys": [],
+			"schemaChangePolicy": {
+				"enableUpdateCatalog": false,
+				"updateBehavior": null,
+				"database": null,
+				"table": null
+			},
+			"updateCatalogOptions": "none",
+			"autoDataQuality": {
+				"isEnabled": false,
+				"evaluationContext": null
+			},
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1721406636623": {
+			"nodeId": "node-1721406636623",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "Customer DB",
+			"generatedNodeName": "CustomerDB_node1721406636623",
+			"classification": "DataSource",
+			"type": "S3",
+			"isCatalog": true,
+			"database": "customers_database",
+			"table": "customers_csv",
+			"partitionPredicate": "",
+			"additionalOptions": {
+				"boundedSize": null,
+				"boundedFiles": null,
+				"boundedOption": null
+			},
+			"calculatedType": "CatalogS3DataSource",
+			"codeGenVersion": 2
+		}
+	},
+	"hasBeenSaved": false,
+	"usageProfileName": null
+}
